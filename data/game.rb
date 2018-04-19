@@ -1,6 +1,6 @@
 class Game
+
   def initialize
-    #TO DO : créé 2 joueurs, créé un board
     @joueur1 = Player.new
     @joueur1.infos
     @joueur2 = Player.new
@@ -10,11 +10,14 @@ class Game
   
   end
 
+#methode qui lance un tour
   def go
-    # TO DO : lance la partie
     @i += 1
+    puts "===================="
     puts "Tour n°#{@i}"
-    
+    puts "===================="
+
+#creation d'une boucle pour alterner les joueurs
     loop do @i < 9
   
        if @i.odd?
@@ -25,23 +28,28 @@ class Game
       end
         break if @i == 9
     end
-  
-
   end
 
+#methode qui lance les actions
   def turn(player)
-    #TO DO : affiche le plateau, demande au joueur il joue quoi, 
-    #vérifie si un joueur a gagné, passe au joueur suivant si la partie n'est pas finie
   puts " C'est le tour de #{player.nom}"
-  #afficher le plateau
+
+#affichage du plateau
   @plateau.visuel
-  #demande au joueur ce qu'il joue
+
+#demande au joueur ce qu'il joue
   puts "Ou veux tu placer ton pion?"
   puts "Info : Tapes de 1 à 9"
   @choix = gets.chomp.to_i
   puts "Tu as choisi la case #{@choix}"
+
+#appel de la methode de modification de la valeur de la case
   @plateau.play(@choix, player, player.token)
+
+#affichage du tableau avec les modifications
   @plateau.visuel
+
+#verification de la victoire ou non 
   @plateau.victory(player.win, player.token)
   puts player.win
     if player.win == false
